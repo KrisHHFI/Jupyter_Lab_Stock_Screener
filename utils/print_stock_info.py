@@ -1,4 +1,4 @@
-from datetime import datetime
+import pandas as pd
 
 
 def print_stock_info(stock_data):
@@ -8,14 +8,19 @@ def print_stock_info(stock_data):
     print(title.upper())
     print("=" * len(title))
 
-    print(f"Current Price: {stock_data['current_price']}")
-    print(f"Open: {stock_data['open']} | High: {stock_data['high']} | Low: {stock_data['low']}")
-    print(f"Market Cap: {stock_data['market_cap']}")
-    print(f"P/E Ratio: {stock_data['pe_ratio']}")
-    print(f"52 Week High: {stock_data['52_week_high']} | 52 Week Low: {stock_data['52_week_low']}")
-    print(f"Dividend: {stock_data['dividend']}")
-    print(f"Dividend Yield %: {stock_data['dividend_yield_pct']}")
-    print(f"Qtrly Div Amt: {stock_data['qtrly_div_amt']}")
+    table_rows = [
+        ["Current Price", stock_data["current_price"]],
+        ["Open", stock_data["open"]],
+        ["High", stock_data["high"]],
+        ["Low", stock_data["low"]],
+        ["Market Cap", stock_data["market_cap"]],
+        ["P/E Ratio", stock_data["pe_ratio"]],
+        ["52 Week High", stock_data["52_week_high"]],
+        ["52 Week Low", stock_data["52_week_low"]],
+        ["Dividend", stock_data["dividend"]],
+        ["Dividend Yield %", stock_data["dividend_yield_pct"]],
+        ["Qtrly Div Amt", stock_data["qtrly_div_amt"]],
+    ]
 
-    now = datetime.now()
-    print("\n\nData collected on:", now.strftime("%Y-%m-%d %H:%M:%S"))
+    stock_table = pd.DataFrame(table_rows, columns=["Metric", "Value"])
+    print(stock_table.to_string(index=False))

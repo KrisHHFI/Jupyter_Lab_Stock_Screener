@@ -1,9 +1,15 @@
 import yfinance as yf
 
+from utils.yfinance_call_tracker import increment_yfinance_call_count
 
-def get_today_price_movement(symbol):
+
+def get_today_price_movement(symbol, ticker=None, return_full_data=False):
     """Fetch intraday close prices for the current trading day."""
-    ticker = yf.Ticker(symbol)
+    if ticker is None:
+        increment_yfinance_call_count()
+        ticker = yf.Ticker(symbol)
+
+    increment_yfinance_call_count()
     intraday = ticker.history(period="1d", interval="5m")
     if intraday.empty:
         raise ValueError(f"No intraday data found for stock symbol '{symbol}'")
@@ -12,20 +18,7 @@ def get_today_price_movement(symbol):
     if intraday.empty:
         raise ValueError(f"No intraday close prices found for stock symbol '{symbol}'")
 
-    exchange_timezone = None
-    try:
-        exchange_timezone = ticker.fast_info.get("timezone")
-    except Exception:
-        exchange_timezone = None
-
-    if not exchange_timezone:
-        info = ticker.info
-        exchange_timezone = info.get("exchangeTimezoneName") or info.get("timeZoneFullName")
-
-    if exchange_timezone:
-        index_tz = intraday.index.tz
-        if index_tz is None:
-            intraday.index = intraday.index.tz_localize("UTC")
-        intraday.index = intraday.index.tz_convert(exchange_timezone)
+    if return_full_data:
+        return intraday
 
     return intraday["Close"]

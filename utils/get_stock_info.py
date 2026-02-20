@@ -2,12 +2,16 @@ import yfinance as yf
 
 from utils.format_market_cap import format_market_cap
 from utils.truncate_two_decimals import truncate_two_decimals
+from utils.yfinance_call_tracker import increment_yfinance_call_count
 
 
-def get_stock_info(symbol):
+def get_stock_info(symbol, ticker=None, intraday_data=None):
     """Fetch stock info and latest prices. Returns a dictionary."""
-    ticker = yf.Ticker(symbol)
+    if ticker is None:
+        increment_yfinance_call_count()
+        ticker = yf.Ticker(symbol)
 
+    increment_yfinance_call_count()
     info = ticker.info
     company_name = info.get("shortName", symbol)
     market_cap = format_market_cap(info.get("marketCap", "N/A"))
@@ -27,14 +31,23 @@ def get_stock_info(symbol):
         dividend = truncate_two_decimals(qtrly_div_amt * 4)
     dividend = truncate_two_decimals(dividend)
 
-    data = ticker.history(period="1d")
+    data = intraday_data
+    if data is None:
+        increment_yfinance_call_count()
+        data = ticker.history(period="1d")
     if data.empty:
         raise ValueError(f"No data found for stock symbol '{symbol}'")
 
-    open_price = truncate_two_decimals(data["Open"].iloc[-1])
-    high_price = truncate_two_decimals(data["High"].iloc[-1])
-    low_price = truncate_two_decimals(data["Low"].iloc[-1])
-    close_price = truncate_two_decimals(data["Close"].iloc[-1])
+    if intraday_data is not None:
+        open_price = truncate_two_decimals(data["Open"].iloc[0])
+        high_price = truncate_two_decimals(data["High"].max())
+        low_price = truncate_two_decimals(data["Low"].min())
+        close_price = truncate_two_decimals(data["Close"].iloc[-1])
+    else:
+        open_price = truncate_two_decimals(data["Open"].iloc[-1])
+        high_price = truncate_two_decimals(data["High"].iloc[-1])
+        low_price = truncate_two_decimals(data["Low"].iloc[-1])
+        close_price = truncate_two_decimals(data["Close"].iloc[-1])
 
     dividend_yield_pct = "N/A"
     if isinstance(dividend, (int, float)) and isinstance(close_price, (int, float)) and close_price != 0:
