@@ -1,0 +1,1 @@
+In this Jupter Lab project I made a simple stock screener. The current setup find US companies with a market cap higher than 2B, in the fast-food industry. The top ten results are printed according to the highest P/E ratio.
