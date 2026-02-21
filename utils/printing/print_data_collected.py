@@ -2,6 +2,7 @@ from datetime import datetime
 
 import pandas as pd
 
+from utils.printing.display_styled_table import display_styled_table
 from utils.printing.print_header import print_header
 
 
@@ -27,9 +28,8 @@ def print_data_collected(
         ],
         columns=["Metric", "Value"],
     )
-    print(usage_table.to_string(index=False))
+    display_styled_table(usage_table)
 
     if yfinance_call_log:
         print("\nCall log:")
-        for entry in yfinance_call_log:
-            print(f"- {entry}")
+        display_styled_table(pd.DataFrame([[entry] for entry in yfinance_call_log], columns=["Entry"]))

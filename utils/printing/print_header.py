@@ -1,9 +1,15 @@
+from rich.console import Console
+from rich.rule import Rule
+
+_console = Console()
+
+
 def print_header(title, main_header=False):
     """Print a section header; optionally use main header style."""
     text = title.upper()
-    border = "=" * (len(text) + 4)
-    print()
+
     if main_header:
-        print(border)
-    print(f"  {text}")
-    print(border)
+        _console.print(Rule(title=f"[bold cyan]{text}[/bold cyan]", style="cyan"))
+        return
+
+    _console.print(Rule(title=f"[bold white]{text}[/bold white]", style="grey50"))

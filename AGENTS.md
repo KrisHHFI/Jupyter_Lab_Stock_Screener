@@ -49,6 +49,7 @@ Examples in this project:
 - `utils/yfinance/call_tracker/state.py`
 - `utils/const/filters.py`
 - `utils/const/sorting.py`
+- `utils/printing/display_styled_table.py`
 - `utils/printing/print_header.py`
 - `utils/printing/print_stock_info.py`
 - `utils/printing/print_data_collected.py`
@@ -94,6 +95,7 @@ BasicStockData4/
 	│		└── get_yfinance_call_count.py
 	├── printing/
 	│	├── __init__.py
+	│	├── display_styled_table.py
 	│	├── print_header.py
 	│	├── print_stock_info.py
 	│	└── print_data_collected.py
@@ -126,6 +128,7 @@ BasicStockData4/
 - `utils/yfinance/call_tracker/log_yfinance_call.py`: Applies delay and appends timestamped call log entries.
 - `utils/yfinance/call_tracker/get_yfinance_call_log.py`: Returns tracked call log entries.
 - `utils/yfinance/call_tracker/get_yfinance_call_count.py`: Returns current tracked call count.
+- `utils/printing/display_styled_table.py`: Displays bordered, notebook-friendly styled DataFrame tables.
 - `utils/printing/print_header.py`: Prints consistent section headers used in console output.
 - `utils/printing/print_stock_info.py`: Console/text presentation of screener result fields.
 - `utils/printing/print_data_collected.py`: Prints call counts, delay settings, timestamp, and yfinance call log.

@@ -1,5 +1,6 @@
 import pandas as pd
 
+from utils.printing.display_styled_table import display_styled_table
 from utils.printing.print_header import print_header
 
 
@@ -9,7 +10,7 @@ def print_stock_info(stock_data):
 
     print_header("Filters")
 
-    print(
+    display_styled_table(
         pd.DataFrame(
             [
                 ["Filter Region", stock_data["region_filter"]],
@@ -17,21 +18,19 @@ def print_stock_info(stock_data):
                 ["Filter Min Market Cap", stock_data["min_market_cap_filter"]],
             ],
             columns=["Metric", "Value"],
-        ).to_string(index=False)
+        )
     )
-    print()
 
     print_header("Sorting")
-    print(
+    display_styled_table(
         pd.DataFrame(
             [
                 ["Sorted By", stock_data["sorting_field"]],
                 ["Direction", stock_data["sorting_direction"]],
             ],
             columns=["Metric", "Value"],
-        ).to_string(index=False)
+        )
     )
-    print()
 
     print_header("Results")
 
@@ -49,4 +48,4 @@ def print_stock_info(stock_data):
         ],
         columns=["Rank", "Symbol", "Company", "P/E Ratio", "Market Cap", "Current Price"],
     )
-    print(ranked_table.to_string(index=False))
+    display_styled_table(ranked_table)
