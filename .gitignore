@@ -2,4 +2,11 @@
 .virtual_documents/
 .venv-2/
 __pycache__/
+**/__pycache__/
 *.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+.DS_Store
+utils/__init__.py
