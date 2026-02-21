@@ -9,7 +9,7 @@ def print_header(title, main_header=False):
     text = title.upper()
 
     if main_header:
-        _console.print(Rule(title=f"[bold cyan]{text}[/bold cyan]", style="cyan"))
+        _console.print(Rule(title=f"[bold black]{text}[/bold black]", style="grey50"))
         return
 
-    _console.print(Rule(title=f"[bold white]{text}[/bold white]", style="grey50"))
+    _console.print(Rule(title=f"[bold black]{text}[/bold black]", style="grey50"))

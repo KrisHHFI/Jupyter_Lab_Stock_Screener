@@ -1,9 +1,12 @@
 from datetime import datetime
 
 import pandas as pd
+from rich.console import Console
 
 from utils.printing.display_styled_table import display_styled_table
 from utils.printing.print_header import print_header
+
+_console = Console()
 
 
 def print_data_collected(
@@ -31,5 +34,5 @@ def print_data_collected(
     display_styled_table(usage_table)
 
     if yfinance_call_log:
-        print("\nCall log:")
+        _console.print("\n[bold black]CALL LOG[/bold black]")
         display_styled_table(pd.DataFrame([[entry] for entry in yfinance_call_log], columns=["Entry"]))

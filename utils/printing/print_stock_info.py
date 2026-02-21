@@ -1,5 +1,6 @@
 import pandas as pd
 
+from utils.formatting.truncate_two_decimals import truncate_two_decimals
 from utils.printing.display_styled_table import display_styled_table
 from utils.printing.print_header import print_header
 
@@ -40,9 +41,9 @@ def print_stock_info(stock_data):
                 item["rank"],
                 item["symbol"],
                 item["company_name"],
-                item["pe_ratio"],
+                truncate_two_decimals(item["pe_ratio"]),
                 item["market_cap"],
-                item["current_price"],
+                truncate_two_decimals(item["current_price"]),
             ]
             for item in stock_data["stocks"]
         ],
