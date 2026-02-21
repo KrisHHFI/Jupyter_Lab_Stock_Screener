@@ -1,6 +1,7 @@
 import yfinance as yf
 
 from utils.const.filters import INDUSTRY_LABEL, MIN_MARKET_CAP_FILTER, REGION_FILTER, SCREEN_SIZE_FILTER, TOP_N_FILTER
+from utils.const.sorting import SORT_ASCENDING, SORT_FIELD_KEY, SORTING_DIRECTION, SORTING_FIELD
 from utils.formatting.format_market_cap import format_market_cap
 from utils.yfinance.build_fast_food_query import build_fast_food_query
 from utils.yfinance.enrich_with_info import enrich_with_info
@@ -21,8 +22,8 @@ def get_top_pe_us_fast_food_stock(
     result = yf.screen(
         query,
         size=max(screen_size, top_n),
-        sortField="peratio.lasttwelvemonths",
-        sortAsc=False,
+        sortField=SORT_FIELD_KEY,
+        sortAsc=SORT_ASCENDING,
     )
 
     quotes = result.get("quotes", [])
@@ -41,5 +42,7 @@ def get_top_pe_us_fast_food_stock(
         "region_filter": REGION_FILTER.upper(),
         "industry_filter": INDUSTRY_LABEL,
         "min_market_cap_filter": format_market_cap(min_market_cap),
+        "sorting_field": SORTING_FIELD,
+        "sorting_direction": SORTING_DIRECTION,
         "stocks": ranked_stocks,
     }

@@ -48,6 +48,7 @@ Examples in this project:
 - `utils/yfinance/call_tracker/timestamp_now.py`
 - `utils/yfinance/call_tracker/state.py`
 - `utils/const/filters.py`
+- `utils/const/sorting.py`
 - `utils/printing/print_header.py`
 - `utils/printing/print_stock_info.py`
 - `utils/printing/print_data_collected.py`
@@ -68,7 +69,8 @@ BasicStockData4/
 	├── __pycache__/
 	├── const/
 	│	├── __init__.py
-	│	└── filters.py
+	│	├── filters.py
+	│	└── sorting.py
 	├── yfinance/
 	│	├── __init__.py
 	│	├── build_fast_food_query.py
@@ -106,6 +108,7 @@ BasicStockData4/
 - `main.ipynb`: Thin orchestration only (imports + top-level calls).
 - `.vscode/settings.json`: Workspace notebook output settings (line-limit and scrolling behavior).
 - `utils/const/filters.py`: Global screener filter constants (region, industry, market cap, top-n, and screen size).
+- `utils/const/sorting.py`: Global sorting constants (display labels and Yahoo sort key/direction).
 - `utils/yfinance/get_stock_info.py`: Orchestrates stock fundamentals and price snapshot assembly.
 - `utils/yfinance/derive_dividend_values.py`: Derives annual and quarterly dividend values from ticker info.
 - `utils/yfinance/extract_prices.py`: Extracts open/high/low/current prices from intraday or latest row data.
